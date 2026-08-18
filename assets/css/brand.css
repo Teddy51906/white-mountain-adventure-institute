@@ -396,6 +396,10 @@ button { font-family: inherit; }
   top: 0;
   z-index: 100;
   padding-block: var(--space-5);
+  /* Translucent dark backing (independent of whatever hero photo sits behind
+     it) guarantees nav-text contrast regardless of that photo's brightness.
+     A flat background-color (not a gradient) keeps the scroll transition smooth. */
+  background-color: rgba(20, 29, 24, 0.68);
   transition: background-color var(--dur-base) var(--ease-out),
     padding-block var(--dur-base) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out);
@@ -609,12 +613,24 @@ body.page-interior .nav-toggle span {
   overflow: hidden;
 }
 
-.hero-media.placeholder-photo {
+.hero-media {
   position: absolute;
   inset: 0;
   z-index: 0;
   border-radius: 0;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+}
+
+/* Real photography: pairs with an ar-* aspect-ratio class to fill the same
+   box a placeholder-photo would, without distortion or layout shift. */
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
 }
 
 .hero-scrim {
@@ -808,7 +824,9 @@ body.page-interior .nav-toggle span {
 }
 
 .editorial-grid .eg-photo-main .placeholder-photo,
-.editorial-grid .eg-photo-secondary .placeholder-photo {
+.editorial-grid .eg-photo-secondary .placeholder-photo,
+.editorial-grid .eg-photo-main .photo,
+.editorial-grid .eg-photo-secondary .photo {
   height: 100%;
 }
 
